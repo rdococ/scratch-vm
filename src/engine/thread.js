@@ -187,6 +187,11 @@ class Thread {
         this.warpTimer = null;
 
         this.justReported = null;
+        
+        /**
+         * Top-level thread variables. Fallback for parameter scope in non-procedure scripts.
+         */
+        this.threadVars = Object.create(null);
     }
 
     /**
@@ -358,7 +363,28 @@ class Thread {
             }
             return null;
         }
-        return null;
+        if (this.threadVars[paramName] === undefined) { return null; }
+        return this.threadVars[paramName];
+    }
+    
+    /**
+     * Set a parameter at the lowest possible level of the stack.
+     * @param {!string} paramName Name of parameter.
+     * @param {*] value Value for parameter.
+     */
+    setParam (paramName, value) {
+        for (let i = this.stackFrames.length - 1; i >= 0; i--) {
+            const frame = this.stackFrames[i];
+            if (frame.params === null) {
+                continue;
+            }
+            if (frame.params.hasOwnProperty(paramName)) {
+                frame.params[paramName] = value;
+                return;
+            }
+            return;
+        }
+        this.threadVars[paramName] = value;
     }
 
     /**

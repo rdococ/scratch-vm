@@ -16,7 +16,9 @@ class Scratch3ProcedureBlocks {
             procedures_definition: this.definition,
             procedures_call: this.call,
             argument_reporter_string_number: this.argumentReporterStringNumber,
-            argument_reporter_boolean: this.argumentReporterBoolean
+            argument_reporter_boolean: this.argumentReporterBoolean,
+            argument_setter: this.setArgument,
+            procedures_scriptvariable: this.definition, // Also no-op
         };
     }
 
@@ -73,6 +75,10 @@ class Scratch3ProcedureBlocks {
             return 0;
         }
         return value;
+    }
+    
+    setArgument (args, util) {
+        util.setParam(args.NAME, args.VALUE);
     }
 }
 

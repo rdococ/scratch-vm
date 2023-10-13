@@ -198,6 +198,15 @@ class BlockUtility {
     }
 
     /**
+     * Modify the stored parameter value for a given parameter name.
+     * @param {string} paramName The procedure's parameter name.
+     * @param {*} The parameter's new stored value.
+     */
+    setParam (paramName, value) {
+        return this.thread.setParam(paramName, value);
+    }
+
+    /**
      * Start all relevant hats.
      * @param {!string} requestedHat Opcode of hats to start.
      * @param {object=} optMatchFields Optionally, fields to match on the hat.
