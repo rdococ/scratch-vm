@@ -378,10 +378,7 @@ class Thread {
             if (frame.params === null) {
                 continue;
             }
-            if (frame.params.hasOwnProperty(paramName)) {
-                frame.params[paramName] = value;
-                return;
-            }
+            frame.params[paramName] = value;
             return;
         }
         this.threadVars[paramName] = value;
