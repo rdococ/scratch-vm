@@ -1,3 +1,5 @@
+const Cast = require('../util/cast');
+
 class Scratch3ProcedureBlocks {
     constructor (runtime) {
         /**
@@ -16,10 +18,11 @@ class Scratch3ProcedureBlocks {
             procedures_definition: this.definition,
             procedures_call: this.call,
             procedures_return: this.return,
-            procedures_scriptvariable: this.definition, // Also no-op
+            procedures_scriptvar_def: this.definition, // Also no-op
+            procedures_setscriptvarto: this.setArgumentTo,
+            procedures_changescriptvarby: this.changeArgumentBy,
             argument_reporter_string_number: this.argumentReporterStringNumber,
             argument_reporter_boolean: this.argumentReporterBoolean,
-            argument_setter: this.setArgument,
         };
     }
 
@@ -106,8 +109,12 @@ class Scratch3ProcedureBlocks {
         return value;
     }
     
-    setArgument (args, util) {
+    setArgumentTo (args, util) {
         util.setParam(args.NAME, args.VALUE);
+    }
+    
+    changeArgumentBy (args, util) {
+        util.setParam(args.NAME, Cast.toNumber(util.getParam(args.NAME)) + Cast.toNumber(args.VALUE));
     }
 }
 
