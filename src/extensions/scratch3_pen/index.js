@@ -192,13 +192,14 @@ class Scratch3PenBlocks {
     }
 
     /**
-     * Wrap a color input into the range (0,100).
+     * Wrap a color input into the range (0,100), excluding 100.
      * @param {number} value - the value to be wrapped.
      * @returns {number} the wrapped value.
      * @private
      */
     _wrapColor (value) {
-        return MathUtil.wrapClamp(value, 0, 100);
+        const remainder = value % 100;
+        return remainder < 0 ? remainder + 100 : remainder;
     }
 
     /**
